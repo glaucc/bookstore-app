@@ -1,0 +1,81 @@
+/* Home.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f58c42;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #d8572a;
+  color: #ffffff;
+}
+
+.logo {
+  font-size: 2rem;
+}
+
+.navbarList {
+  display: flex;
+  list-style-type: none;
+}
+
+.navbarList li {
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.heroSection {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.exploreButton {
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  color: #f58c42;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.exploreButton:hover {
+  background-color: #f5a25c;
+  color: #ffffff;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.footer {
+  padding: 1rem 2rem;
+  text-align: center;
+  background-color: #d8572a;
+  color: #ffffff;
+}
