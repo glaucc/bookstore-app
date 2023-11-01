@@ -1,81 +1,104 @@
-/* Home.module.css */
+.body {
+  background-color: #d8572a;
+  /* position: fixed; */
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+
+}
+
 
 .container {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   min-height: 100vh;
-  background-color: #f58c42;
+  background-color: #d8572a;
 }
 
 .header {
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
-  background-color: #d8572a;
-  color: #ffffff;
+  align-items: center;
+  padding: 20px 0;
 }
 
 .logo {
-  font-size: 2rem;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .navbarList {
+  list-style: none;
   display: flex;
-  list-style-type: none;
 }
 
 .navbarList li {
-  margin-right: 2rem;
+  margin-right: 30px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.main {
-  flex: 1;
-  padding: 2rem;
+.navbarList li:hover {
+  color: #ffffff;
+  font-weight: bold; /* Brighten the hover effect and make text bold */
 }
 
-.heroSection {
+.dashboard {
+  margin-top: 40px;
+  min-height: 30vw;
+}
+
+.horizontalDashboard {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px 0;
+  /* Hide the default scrollbar */
+  scrollbar-width: none;
+  /* Add some padding to create space for the custom scrollbar */
+  padding-bottom: 10px;
+}
+
+
+.bookContainer {
+  padding: 0 10px;
+}
+
+.book {
+  width: 150px;
+  height: 200px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.book p {
   text-align: center;
-  padding: 3rem 0;
 }
 
-.heroTitle {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+.book:hover {
+  transform: scale(1.1);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.heroSubtitle {
-  font-size: 1.5rem;
-  color: #ffffff;
-  margin-bottom: 2rem;
-}
-
-.exploreButton {
-  padding: 1rem 2rem;
-  background-color: #ffffff;
-  color: #f58c42;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.exploreButton:hover {
-  background-color: #f5a25c;
-  color: #ffffff;
-}
-
-.sectionTitle {
-  font-size: 2rem;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
+.folderIcon {
+  margin-right: 0.2rem;
 }
 
 .footer {
-  padding: 1rem 2rem;
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 1px solid #ccc;
   text-align: center;
-  background-color: #d8572a;
-  color: #ffffff;
+  color: #000000;
+  font-weight: bold; /* Make the footer text bold */
+  margin-top: 5rem;
 }
+

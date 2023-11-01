@@ -1,46 +1,39 @@
-import axios from "axios";
 import { useState } from "react";
-import styles from '../styles/AuthenticationPage.module.css'; // Import your CSS module for styling
-
+import styles from '../styles/AuthenticationPage.module.css';
 
 const AuthenticationPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-    const axios = require('axios');
-    let data = '{"userId":"react","password":"123456"}';
-    
-    let config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: 'https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/authentication/versions/1/tickets',
-        headers: { 
-        'Content-Type': 'text/plain'
-        },
-        data : data
+  const handleSubmit = async (event:any) => {
+    event.preventDefault();
+    const url = 'https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/authentication/versions/1/tickets';
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': 'ALFRESCO_REMEMBER_ME=1', // Add the cookie here
+      },
+      body: JSON.stringify({
+        userId: username,
+        password: password,
+      }),
     };
-  
-    
-    
-    const handleSubmit = async (event:any) => {
-        event.preventDefault();
-        
-        axios.request(config)
-        .then((response:any) => {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch((error:any) => {
-          console.log(error);
-        });
+
+    try {
+      const response = await fetch(url, requestOptions);
+      const data = await response.json();
+      console.log(data); // Handle the response data here
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
         <h2 className={styles.loginTitle}>Welcome Back!</h2>
-        <form className={styles.loginForm}
-         onSubmit={handleSubmit}
-         >
+        <form className={styles.loginForm} onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Username"

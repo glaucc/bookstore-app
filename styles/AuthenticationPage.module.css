@@ -50,7 +50,7 @@
   
   .imageContainer {
     flex: 2;
-    background-image: url('../assets/img/guts.jpg');
+    background-image: url('../assets/img/nice-back.jpg');
     background-size: cover;
     background-position: center;
   }
