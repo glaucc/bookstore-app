@@ -26,10 +26,10 @@ const AuthenticationPage = () => {
         event.preventDefault();
         
         axios.request(config)
-        .then((response) => {
+        .then((response:any) => {
           console.log(JSON.stringify(response.data));
         })
-        .catch((error) => {
+        .catch((error:any) => {
           console.log(error);
         });
   };
