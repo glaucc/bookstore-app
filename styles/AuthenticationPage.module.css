@@ -1,0 +1,57 @@
+/* Login.module.css */
+
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .loginContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .loginTitle {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .inputField {
+    width: 150%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgb(234, 234, 234);
+    border-radius: 2px;
+  }
+  
+  .loginButton {
+    width: 150%;
+    padding: 1rem;
+    background-color: #f58c42;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .loginButton:hover {
+    background-color: #f5a25c;
+  }
+  
+  .imageContainer {
+    flex: 2;
+    background-image: url('../assets/img/guts.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
