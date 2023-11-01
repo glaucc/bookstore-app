@@ -20,38 +20,26 @@ const AuthenticationPage = () => {
         data : data
     };
   
-  axios.request(config)
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-      
-
-//   const handleSubmit = async (event:any) => {
-//     event.preventDefault();
-//     const url = `https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/authentication/versions/1/tickets`;
-
-//     try {
-//       const response = await axios.post(url, { username, password });
-
-//       // Handle the response data as needed
-//       console.log(response.data);
-//     } catch (error) {
-//       // Handle any errors
-//       console.error('Error:', error);
-//     }
-
-
-//   };
+    
+    
+    const handleSubmit = async (event:any) => {
+        event.preventDefault();
+        
+        axios.request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
         <h2 className={styles.loginTitle}>Welcome Back!</h2>
         <form className={styles.loginForm}
-        //  onSubmit={handleSubmit}
+         onSubmit={handleSubmit}
          >
           <input
             type="text"
