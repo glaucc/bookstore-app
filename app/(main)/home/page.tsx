@@ -19,7 +19,7 @@ const HomePage = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setDisplayName(data.displayName);
+        setDisplayName(data.entry.displayName);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -34,8 +34,7 @@ const HomePage = () => {
       .then((response) => response.json())
       .then((data) => {
         const entries = data.list.entries;
-        const filteredFiles = entries.filter((entry:any) => entry.entry.isFile && entry.entry.name);
-        setFiles(filteredFiles);
+        setFiles(entries);
       })
       .catch((error) => {
         console.error('Error fetching files:', error);
