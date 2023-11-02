@@ -73,8 +73,8 @@ const HomePage = () => {
       <div className={styles.dashboard}>
         <h2>Dashboard</h2>
         <div className={styles.horizontalDashboard}>
-          {files.map((file) => (
-            <div className={styles.bookContainer}>
+          {files.map((file, index) => (
+            <div key={index} className={styles.bookContainer}>
               <div className={styles.book}>
                 {file.entry.isFile ? <Folder className={styles.folderIcon} /> : ""}
                 <p>{file.entry.name}</p>
