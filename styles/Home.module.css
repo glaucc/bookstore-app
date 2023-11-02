@@ -67,7 +67,7 @@
 }
 
 .book {
-  width: 150px;
+  width: 200px;
   height: 200px;
   background-color: #f2f2f2;
   border-radius: 10px;
@@ -102,3 +102,28 @@
   margin-top: 5rem;
 }
 
+.actionButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.createFolderButton, .uploadFileButton {
+  background-color: #f1f1f1;
+  border: 2px solid #d3d3d3;
+  color: #333;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.createFolderButton:hover, .uploadFileButton:hover {
+  background-color: #d3d3d3;
+  color: #000;
+  transform: scale(1.05);
+}

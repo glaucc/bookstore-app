@@ -13,6 +13,32 @@ const HomePage = () => {
     'Authorization': 'Basic cmVhY3Q6MTIzNDU2', // Add your Base64 encoded credentials here
   };
 
+  const createFolder = async () => {
+    const url = 'https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/nodes/382b3102-ffba-422e-8711-d7f330fb5468/children';
+    const data = {
+      nodeType: 'cm:folder',
+      name: 'JJ',
+      properties: {
+        'cm:title': 'Deez',
+        'cm:description': 'something',
+      },
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic cmVhY3Q6MTIzNDU2', // Add your Base64 encoded credentials here
+        },
+        body: JSON.stringify(data),
+      });
+      console.log('Folder created:', response);
+    } catch (error) {
+      console.error('Error creating folder:', error);
+    }
+  };
+
   useEffect(() => {
     fetch('https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/people/-me-', {
       headers: authHeaders,
@@ -56,6 +82,14 @@ const HomePage = () => {
             </ul>
           </nav>
         </header>
+        
+        <div className={styles.actionButtons}>
+          <button className={styles.createFolderButton} onClick={createFolder}>
+            Create Folder
+          </button>
+          <button className={styles.uploadFileButton}>Upload File</button>
+        </div>
+
         <div className={styles.dashboard}>
           <h2>Dashboard</h2>
           <div className={styles.horizontalDashboard}>
