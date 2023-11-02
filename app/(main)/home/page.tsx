@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import styles from '../../../styles/Home.module.css';
 
-import { Folder } from 'lucide-react';
+import { Folder, Upload } from 'lucide-react';
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,10 +17,8 @@ import {
 const HomePage = () => {
   const [displayName, setDisplayName] = useState('');
   const [files, setFiles] = useState<any[]>([]);
-  const [folderName, setFolderName] = useState('');
-  const [folderTitle, setFolderTitle] = useState('');
-  const [folderDescription, setFolderDescription] = useState('');
   const [refreshData, setRefreshData] = useState(false);
+  const [isFilePopoverOpen, setIsFilePopoverOpen] = useState(false);
 
   const authHeaders = {
     Cookie: 'ALFRESCO_REMEMBER_ME=1',
@@ -62,7 +60,7 @@ const HomePage = () => {
         },
         body: JSON.stringify(data),
       });
-      console.log('Folder created:', response);
+      console.log('Folder created!');
 
       // Add animation logic here
     } catch (error) {
@@ -70,6 +68,33 @@ const HomePage = () => {
     }
   };
 
+  const handleFileUpload = async (file:File) => {
+    const url = `https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/nodes/382b3102-ffba-422e-8711-d7f330fb5468/children?autoRename=true&include=allowableOperations`;
+
+    const formData = new FormData();
+    formData.append('filedata', file);
+    formData.append('relativePath', '');
+    formData.append('include', 'allowableOperations');
+    formData.append('autoRename', 'true');
+    formData.append('nodeType', 'cm:content');
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Basic cmVhY3Q6MTIzNDU2',
+        },
+        body: formData,
+      });
+
+      console.log('File uploaded!');
+      setIsFilePopoverOpen(false); // Close the file upload popover after successful upload
+      setRefreshData(!refreshData);
+      // Trigger data refresh here if necessary
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
 
 
   useEffect(() => {
@@ -115,8 +140,11 @@ const HomePage = () => {
             </ul>
           </nav>
         </header>
-        <div className={styles.actionButtons}>
-          
+    <div className={styles.actionButtons}>
+
+        
+
+
         <Popover>
       <PopoverTrigger asChild>
         <Button className={styles.createFolderButton}>Create Folder</Button>
@@ -158,10 +186,32 @@ const HomePage = () => {
           </div>
         </div>
       </PopoverContent>
-    </Popover>
+      </Popover>
 
-          <Button className={styles.uploadFileButton}>Upload File</Button>
+
+
+
+      <Popover>
+      <PopoverTrigger asChild>
+        <Button className={styles.uploadFileButton}>Upload File</Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-80">
+        <div className="grid gap-4">
+          
+        <input
+          type="file"
+          onChange={(e) => handleFileUpload(e.target.files[0])}
+        />
+            
+            
         </div>
+      </PopoverContent>
+      </Popover>
+
+
+
+
+    </div>
         <div className={styles.dashboard}>
           <h2>Dashboard</h2>
           <div className={styles.horizontalDashboard}>
