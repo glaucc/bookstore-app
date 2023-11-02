@@ -74,7 +74,7 @@ const HomePage = () => {
         <h2>Dashboard</h2>
         <div className={styles.horizontalDashboard}>
           {files.map((file) => (
-            <div key={file.entry.id} className={styles.bookContainer}>
+            <div className={styles.bookContainer}>
               <div className={styles.book}>
                 {file.entry.isFile ? <Folder className={styles.folderIcon} /> : ""}
                 <p>{file.entry.name}</p>
