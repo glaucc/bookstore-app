@@ -21,6 +21,7 @@ const HomePage = () => {
   const [isFilePopoverOpen, setIsFilePopoverOpen] = useState(false);
   const [viewedFileData, setViewedFileData] = useState(null);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [selectedFolder, setSelectedFolder] = useState(null);
 
   const authHeaders = {
     Cookie: 'ALFRESCO_REMEMBER_ME=1',
@@ -116,6 +117,23 @@ const HomePage = () => {
 
   };
 
+  const handleFolderDoubleClick = async (folderId:any) => {
+    try {
+      const response = await fetch(
+          `https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/nodes/${folderId}/children?maxItems=25&orderBy=isFolder%20desc%2Cname%20ASC&include=path%2Cproperties%2CallowableOperations%2Cpermissions%2CaspectNames%2CisFavorite%2Cdefinition&includeSource=true`,
+        {
+          headers: authHeaders,
+        }
+      );
+      const data = await response.json();
+      const entries = data.list.entries;
+      console.log(data)
+      setFiles(entries);
+      setSelectedFolder(folderId);
+    } catch (error) {
+      console.error('Error fetching folder contents:', error);
+    }
+  };
 
   useEffect(() => {
     fetch('https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/people/-me-', {
@@ -145,7 +163,12 @@ const HomePage = () => {
       .catch((error) => {
         console.error('Error fetching files:', error);
       });
-  }, [refreshData]);
+
+      if (selectedFolder) {
+        handleFolderDoubleClick(selectedFolder);
+      }
+
+  }, [refreshData, selectedFolder]);
 
   return (
     <div className={styles.body}>
@@ -238,9 +261,17 @@ const HomePage = () => {
           <h2>Dashboard</h2>
           <div className={styles.horizontalDashboard}>
             {files.map((file, index) => (
-              <div key={index} className={styles.bookContainer}>
+              <div key={index} 
+              className={styles.bookContainer}
+              onDoubleClick={() => {
+                if (file.entry.isFolder) {
+                  handleFolderDoubleClick(file.entry.id);
+                }
+              }}
+              >
                 <div 
                 className={styles.book}
+                style={{ cursor: file.entry.isFile ? 'pointer' : 'auto' }}
                 onClick={() => {
                   if (file.entry.isFile) {
                     handleViewFile(file.entry.id);
@@ -257,13 +288,7 @@ const HomePage = () => {
             ))}
             
             
-            {/* {isPopoverOpen && viewedFileData && (
-              <div className="customPopover">
-                <div className="customPopoverContent">
-                  <p>{viewedFileData}</p>
-                </div>
-              </div>
-            )} */}
+            
           {isPopoverOpen && viewedFileData && (
             <div className={styles.dataDiv}>
               <p className={styles.fileData}>{viewedFileData}</p>
