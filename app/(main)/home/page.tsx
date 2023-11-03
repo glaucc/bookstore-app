@@ -127,7 +127,6 @@ const HomePage = () => {
       );
       const data = await response.json();
       const entries = data.list.entries;
-      console.log(data)
       setFiles(entries);
       setSelectedFolder(folderId);
     } catch (error) {
