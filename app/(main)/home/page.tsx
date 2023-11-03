@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import styles from '../../../styles/Home.module.css';
 
-import { Folder, Upload } from 'lucide-react';
+import { Folder, Upload, X } from 'lucide-react';
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,6 +19,8 @@ const HomePage = () => {
   const [files, setFiles] = useState<any[]>([]);
   const [refreshData, setRefreshData] = useState(false);
   const [isFilePopoverOpen, setIsFilePopoverOpen] = useState(false);
+  const [viewedFileData, setViewedFileData] = useState(null);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const authHeaders = {
     Cookie: 'ALFRESCO_REMEMBER_ME=1',
@@ -96,6 +98,24 @@ const HomePage = () => {
     }
   };
 
+  const handleViewFile = async (fileId:string) => {
+    try {
+      const response = await fetch(
+        `https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/nodes/${fileId}/content?attachment=false`,
+        { headers: authHeaders }
+      );
+
+    const data = await response.text(); // Read the response as text
+    console.log('Retrieved text data:', data); // Log the retrieved text data
+
+    setViewedFileData(data);
+    
+  } catch (error) {
+    console.error('Error viewing file:', error);
+  }
+
+  };
+
 
   useEffect(() => {
     fetch('https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/people/-me-', {
@@ -108,6 +128,8 @@ const HomePage = () => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+
+      
 
     fetch(
       'https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/nodes/382b3102-ffba-422e-8711-d7f330fb5468/children?maxItems=25&orderBy=isFolder%20desc%2Cname%20ASC&include=path%2Cproperties%2CallowableOperations%2Cpermissions%2CaspectNames%2CisFavorite%2Cdefinition&includeSource=true',
@@ -217,12 +239,41 @@ const HomePage = () => {
           <div className={styles.horizontalDashboard}>
             {files.map((file, index) => (
               <div key={index} className={styles.bookContainer}>
-                <div className={styles.book}>
-                  {file.entry && !file.entry.isFile ? <Folder className={styles.folderIcon} /> : ''}
-                  <p>{file.entry && file.entry.name}</p>
+                <div 
+                className={styles.book}
+                onClick={() => {
+                  if (file.entry.isFile) {
+                    handleViewFile(file.entry.id);
+                    setIsPopoverOpen(true);
+                  }
+                }}                
+                >
+                  {!file.entry.isFile ? <Folder className={styles.folderIcon} /> : ''}
+                  <p>{file.entry.name}</p>
                 </div>
+                
+
               </div>
             ))}
+            
+            
+            {/* {isPopoverOpen && viewedFileData && (
+              <div className="customPopover">
+                <div className="customPopoverContent">
+                  <p>{viewedFileData}</p>
+                </div>
+              </div>
+            )} */}
+          {isPopoverOpen && viewedFileData && (
+            <div className={styles.dataDiv}>
+              <p className={styles.fileData}>{viewedFileData}</p>
+              <div className={styles.closeButton} onClick={() => setIsPopoverOpen(false)}>
+                <X size={40} className={styles.X} />
+                <span className={styles.hoverText}>Close</span>
+              </div>
+            </div>
+          )}
+
           </div>
         </div>
         <footer className={styles.footer}>
